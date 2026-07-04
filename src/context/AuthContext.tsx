@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { mockLogin } from '../services/api';
@@ -60,9 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = async () => {
     setUser(null);
     localStorage.removeItem('kp_user');
-    if (typeof window !== 'undefined') {
-      window.location.href = '/auth/login';
-    }
+    window.location.href = '/auth/login';
   };
 
   const updateUserProfileState = (updates: Partial<UserProfile>) => {

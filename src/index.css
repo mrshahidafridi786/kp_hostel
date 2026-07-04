@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 37 99 235;
+    --secondary: 16 185 129;
+    --accent: 245 158 11;
+    --background: 248 250 252;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --border: 226 232 240;
+  }
+
+  .dark {
+    --primary: 59 130 246;
+    --secondary: 52 211 153;
+    --background: 2 6 23;
+    --foreground: 248 250 252;
+    --card: 15 23 42;
+    --border: 30 41 59;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))] antialiased transition-colors duration-300;
+    font-feature-settings: "cv02","cv03","cv04","cv11";
+  }
+}
+
+@layer utilities {
+  /* ── Glassmorphism ── */
+  .glass {
+    @apply bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/30;
+  }
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-slate-200/60 dark:border-slate-800/60 shadow-sm;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .glass-card:hover {
+    @apply shadow-lg;
+    transform: translateY(-2px);
+  }
+  .glass-nav {
+    @apply sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/40 dark:border-slate-800/40;
+  }
+
+  /* ── Gradients ── */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-600 dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400;
+  }
+  .btn-gradient {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 transition-all duration-200 cursor-pointer;
+  }
+  .btn-secondary-gradient {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-semibold shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 active:scale-95 transition-all duration-200;
+  }
+  .btn-danger {
+    @apply bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-400 hover:to-rose-400 text-white font-semibold shadow-md shadow-red-500/20 active:scale-95 transition-all duration-200;
+  }
+
+  /* ── Micro-interactions ── */
+  .hover-lift {
+    @apply hover:-translate-y-1 hover:shadow-lg transition-all duration-300;
+  }
+  .hover-glow-blue {
+    @apply hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-300;
+  }
+  .card-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .card-shine::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.06), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+  .card-shine:hover::before { left: 130%; }
+
+  /* ── Stat counter glow ── */
+  .stat-card {
+    @apply relative overflow-hidden rounded-2xl p-6 border transition-all duration-300;
+  }
+  .stat-card:hover { transform: translateY(-3px); }
+
+  /* ── Sidebar active state ── */
+  .nav-active {
+    @apply bg-blue-600 text-white shadow-lg shadow-blue-600/30;
+  }
+  .nav-inactive {
+    @apply text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white;
+  }
+
+  /* ── Page transition wrapper ── */
+  .page-enter {
+    animation: pageEnter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  @keyframes pageEnter {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Shimmer loader ── */
+  .shimmer {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+  }
+  .dark .shimmer {
+    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ── Badge variants ── */
+  .badge-blue   { @apply px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400; }
+  .badge-green  { @apply px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400; }
+  .badge-amber  { @apply px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400; }
+  .badge-red    { @apply px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-500/10 text-red-600 dark:text-red-400; }
+  .badge-slate  { @apply px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300; }
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  transition: background .2s;
+}
+::-webkit-scrollbar-thumb:hover { @apply bg-slate-400 dark:bg-slate-600; }
+
+/* ── Input focus ring ── */
+input:focus, textarea:focus, select:focus {
+  @apply outline-none ring-2 ring-blue-500/30 border-blue-500;
+}
+
+/* ── Floating label inputs ── */
+.input-base {
+  @apply w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm transition-all duration-200;
+}
+
+/* ── Table row hover ── */
+.table-row-hover {
+  @apply hover:bg-blue-50/40 dark:hover:bg-blue-950/20 transition-colors duration-150;
+}
+
+/* ── Animated gradient border ── */
+.gradient-border {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed, #10b981);
+}
+.gradient-border > * { border-radius: calc(1rem - 1px); }
