@@ -351,7 +351,23 @@ export const INITIAL_USERS = [
   },
 ];
 
-export const INITIAL_ROOMS = [
+export interface RoomResident {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+export interface StoredRoom {
+  _id: string;
+  roomNumber: string;
+  floor: number;
+  capacity: number;
+  monthlyFee: number;
+  status: 'Available' | 'Full' | 'Maintenance';
+  residents: RoomResident[];
+}
+
+export const INITIAL_ROOMS: StoredRoom[] = [
   {
     _id: 'room-101',
     roomNumber: '101',
@@ -1069,14 +1085,14 @@ export const apiRequest = async (endpoint: string, options: RequestInit = {}): P
 
   if (path === '/rooms/assign' && method === 'POST') {
     const { roomId, studentId } = body;
-    const rooms = loadRooms();
-    const users = loadUsers();
+    const rooms: any[] = loadRooms();
+    const users: any[] = loadUsers();
     const student = users.find(u => u._id === studentId || u.id === studentId);
     const room = rooms.find(r => r._id === roomId);
 
     if (student && room) {
       room.residents = room.residents || [];
-      if (!room.residents.some(r => r._id === student._id)) {
+      if (!room.residents.some((r: any) => r._id === student._id)) {
         room.residents.push({ _id: student._id, name: student.name, email: student.email });
       }
       room.status = room.residents.length >= room.capacity ? 'Full' : 'Available';
@@ -1091,13 +1107,13 @@ export const apiRequest = async (endpoint: string, options: RequestInit = {}): P
 
   if (path === '/rooms/unassign' && method === 'POST') {
     const { roomId, studentId } = body;
-    const rooms = loadRooms();
-    const users = loadUsers();
+    const rooms: any[] = loadRooms();
+    const users: any[] = loadUsers();
     const room = rooms.find(r => r._id === roomId);
     const student = users.find(u => u._id === studentId || u.id === studentId);
 
     if (room) {
-      room.residents = (room.residents || []).filter(r => r._id !== studentId);
+      room.residents = (room.residents || []).filter((r: any) => r._id !== studentId);
       room.status = room.residents.length >= room.capacity ? 'Full' : 'Available';
       if (student) student.roomNumber = '';
 
@@ -1182,7 +1198,7 @@ export const apiRequest = async (endpoint: string, options: RequestInit = {}): P
           _id: `fee-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
           student: s._id || s.id,
           studentId: { _id: s._id || s.id, name: s.name, email: s.email, studentId: s.studentId || 'KPH-STUDENT' },
-          roomNumber: s.roomNumber,
+          roomNumber: s.roomNumber || '',
           amount,
           month,
           year: Number(year),

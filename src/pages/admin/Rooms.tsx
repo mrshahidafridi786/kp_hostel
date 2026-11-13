@@ -22,12 +22,20 @@ interface Room {
   status: 'Available' | 'Full' | 'Maintenance';
 }
 
-const emptyForm = {
+interface RoomFormState {
+  roomNumber: string;
+  floor: number;
+  capacity: number;
+  monthlyFee: number;
+  status: 'Available' | 'Full' | 'Maintenance';
+}
+
+const emptyForm: RoomFormState = {
   roomNumber: '',
   floor: 1,
   capacity: 4,
   monthlyFee: 9500,
-  status: 'Available' as const,
+  status: 'Available',
 };
 
 export default function AdminRooms() {
