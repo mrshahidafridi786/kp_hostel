@@ -4,81 +4,80 @@ import {
   Menu, X, Sun, Moon, ArrowRight, Shield, Zap, Wifi,
   Utensils, BookOpen, Heart, Droplet, RefreshCw, MapPin,
   Phone, Mail, Calendar, Info, Award, User, HelpCircle, Check,
-  ChevronDown, MessageCircle, ChevronLeft, ChevronRight, Play, Eye, Target, Star
+  ChevronDown, MessageCircle, ChevronLeft, ChevronRight, Play, Eye, Target, Star,
+  Sparkles, ShieldCheck, GraduationCap
 } from 'lucide-react';
-import { apiRequest } from '@/services/api';
+import { apiRequest, INITIAL_HOSTEL_INFO, INITIAL_FACILITIES, INITIAL_ROOMS } from '@/services/api';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/context/ThemeContext';
 
-// ── Mock Data ─────────────────────────────────────────────────────────
 const defaultHostelInfo = {
-  description: "KP Youth University Hostel Peshawar is Khyber Pakhtunkhwa's premier student boarding facility, offering secure, hygienic, and modern living quarters designed to support academic and personal growth.",
-  mission: 'To digitalize residential operations and offer a premium, hygienic, and secure boarding environment that supports students in achieving academic excellence.',
-  vision: 'To build a state-of-the-art model for youth accommodation that resolves student lodging constraints through advanced features, green energy, and technology.',
-  history: 'Founded in 2020 by the Directorate of Youth Affairs KP to support students coming from remote regions (Chitral, Swat, Waziristan, etc.) to study in Peshawar.',
+  ...INITIAL_HOSTEL_INFO,
   rules: [
-    'Curfew is strictly 10:00 PM. Late entries must be approved by the Warden.',
-    'Cleanliness is mandatory. Residents must keep their rooms tidy.',
-    'No external visitors are allowed inside room quarters without registering at the reception.',
-    'Anti-social behaviors, smoking, or illegal substances are strictly prohibited and result in immediate suspension.',
+    'Curfew is strictly 10:00 PM. Late entries must be approved via Warden digital slip.',
+    'Cleanliness is mandatory. Residents must keep their rooms tidy and hygienic.',
+    'No external visitors are allowed inside residential rooms without logging at reception.',
+    'Anti-social behaviors, smoking, or unauthorized electrical appliances are strictly prohibited.',
   ],
-  contact: { email: 'info@kpyouthhostel.com', phone: '+92-91-9216701', whatsApp: '+92-300-1234567' },
-  location: {
-    address: 'University Road, Zoo Street, Rahatabad, Peshawar, Khyber Pakhtunkhwa',
-    googleMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.7247738202517!2d71.48003661148107!3d34.0124395723507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38d9172bc9776f9d%3A0xc07a514d3f3f1e94!2sPeshawar%20Zoo!5e0!3m2!1sen!2spk!4v1719999999999!5m2!1sen!2spk',
-    nearbyUniversities: ['University of Peshawar (UoP) — 1.2 km', 'UET Peshawar — 1.5 km', 'Khyber Medical University (KMU) — 2.0 km', 'Islamia College Peshawar — 1.8 km'],
-  },
-  warden: {
-    name: 'M Noor Wazir', qualification: 'Master of Public Administration (Peshawar University)', experience: '12 Years in Student Housing Management',
-    message: 'Welcome to KP Youth Hostel. Our aim is to provide you a home away from home. Here, we prioritize your safety, hygiene, and study environment above everything else.',
-    bio: 'M Noor Wazir holds a Masters in Public Administration and has overseen student boarding facilities for 12 years. He believes in fostering a disciplined yet caring community environment.',
-    image: '/images/warden.jpg',
-  },
-  md: {
-    name: 'Hameed Khan', bio: 'The Managing Director focuses on implementing government policies for youth development, executing digital transformation in youth hostels, and creating affordable living conditions.',
-    vision: 'To build modern, digitized youth hostels across KP, promoting academic success and national integration.',
-    message: 'This hostel represents our commitment to the youth of KP. By digitizing fee collections, rooms allocations, and notifications, we ensure complete transparency and convenience.',
-    image: '/images/md.jpg',
-  },
   gallery: [
-    { url: '/images/hostel_dining.jpg', category: 'Dining Hall', caption: 'Students Dining Together — KP Youth Hostel' },
-    { url: '/images/hostel_outside.jpg', category: 'Building', caption: 'KP University Youth Hostel — Main Entrance' },
-    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=600', category: 'Rooms', caption: 'Premium Quad Share Student Room' },
-    { url: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=600', category: 'Rooms', caption: 'Double Bed Room with Study Desks' },
-    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=600', category: 'Library', caption: 'Air Conditioned Library and Reading Room' },
-    { url: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=600', category: 'Sports Area', caption: 'Indoor Games and Recreation Area' },
+    { url: '/images/hostel_dining.jpg', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall — KP Youth Hostel' },
+    { url: '/images/hostel_outside.jpg', category: 'Building', caption: 'KP University Youth Hostel — Main Facade' },
+    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
+    { url: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
+    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
+    { url: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=800', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
   ],
 };
 
-const defaultRooms = [
-  { roomNumber: '101', floor: 1, capacity: 4, monthlyFee: 9500, residents: [1, 2], status: 'Available' },
-  { roomNumber: '201', floor: 2, capacity: 2, monthlyFee: 14000, residents: [], status: 'Available' },
-  { roomNumber: '301', floor: 3, capacity: 1, monthlyFee: 18000, residents: [], status: 'Available' },
-];
-
-const defaultFacilities = [
-  { name: 'High Speed WiFi', description: '24/7 uninterrupted fiber internet across all rooms and common areas.', icon: 'wifi' },
-  { name: 'Electricity Backup', description: 'Heavy generators and UPS modules handle load-shedding events.', icon: 'zap' },
-  { name: 'CCTV & Security', description: '24/7 active CCTV recording and professional security guards at gates.', icon: 'shield' },
-  { name: 'Dining Hall & Mess', description: 'Hygiene-certified kitchen serving three healthy meals daily.', icon: 'utensils' },
-  { name: 'Laundry Services', description: 'In-house washing machines and ironing services twice a week.', icon: 'refreshcw' },
-  { name: 'AC Library', description: 'Quiet study environment open 24/7 with academic resources.', icon: 'bookopen' },
-];
+const defaultRooms = INITIAL_ROOMS;
+const defaultFacilities = INITIAL_FACILITIES;
 
 const faqs = [
-  { q: 'Who is eligible to apply?', a: 'Students currently enrolled in registered universities in Peshawar (UoP, UET, KMU, Islamia College) and young working professionals are eligible. Admission is merit-based.' },
-  { q: 'What is included in the monthly fee?', a: 'The fee covers rent, high-speed WiFi, 24/7 electricity backup, cleaning, parking, security, and AC library access. Mess charges are billed separately.' },
-  { q: 'Are visitors allowed?', a: 'Visitors are allowed in the reception lobby or dining area only. They must register at the gate and are not allowed in student corridors or rooms.' },
-  { q: 'How is security managed?', a: '24/7 gate security, active CCTV in corridors, regular guard shifts, and a digitized entry log for check-in/check-out tracking.' },
+  {
+    q: 'Who is eligible to apply for accommodation?',
+    a: 'Students currently enrolled in registered universities in Peshawar (UoP, UET, KMU, FAST-NUCES, Islamia College, IMSciences) and young researchers are eligible. Admission is merit-based with priority for outstation youth.',
+  },
+  {
+    q: 'What is included in the monthly rent package?',
+    a: 'The fee covers furnished bed space, 500 Mbps redundant fiber WiFi, 24/7 solar/generator electricity backup, room cleaning, security, parking, and AC study hall access. Dining mess charges are billed separately.',
+  },
+  {
+    q: 'How does digital fee payment work?',
+    a: 'Residents receive an automated monthly invoice in their student portal on the 1st of every month. Payments can be deposited instantly via EasyPaisa, JazzCash, or bank transfer with immediate receipts.',
+  },
+  {
+    q: 'What are the security and guest policies?',
+    a: 'We maintain 24/7 gate security, active CCTV recording across corridors, RFID turnstile check-ins, and biometric verification. Guests may visit in the reception lounge only.',
+  },
 ];
 
 const testimonials = [
-  { name: 'Shahid Khan', university: 'UET Peshawar', rating: 5, text: 'The best private hostel in Peshawar. Backup power and the silent AC library saved me during final exams. Highly recommended!' },
-  { name: 'Asad Ali', university: 'University of Peshawar', rating: 5, text: 'Hygienic food, 24/7 security, and friendly management. The digital portal makes paying fees extremely easy.' },
-  { name: 'Zeeshan Ahmad', university: 'Khyber Medical College', rating: 4, text: 'Very neat and clean. The study hall is a great space. Highly disciplined atmosphere perfect for medical students.' },
+  {
+    name: 'Bilal Tariq',
+    university: 'FAST-NUCES Peshawar (Software Eng.)',
+    rating: 5,
+    text: 'The 500 Mbps high-speed fiber internet and uninterrupted solar power backup made remote coding and final semester projects completely seamless. Hands down the best student accommodation in KP.',
+  },
+  {
+    name: 'Hamza Farooq',
+    university: 'Khyber Medical University (Pharm-D)',
+    rating: 5,
+    text: 'Hygienic food, 24/7 security, and disciplined quiet hours. The student digital portal makes fee payments and warden permissions straightforward.',
+  },
+  {
+    name: 'Danyal Rehman',
+    university: 'UET Peshawar (Electrical Eng.)',
+    rating: 5,
+    text: 'Very neat and secure. The 24/7 AC library saved me during midterm and final exam weeks. Great community of aspiring engineers and medical scholars.',
+  },
+  {
+    name: 'Shahzaib Shinwari',
+    university: 'KMC Peshawar (Final Year MBBS)',
+    rating: 5,
+    text: 'Ideal environment for clinical rotation students who need quiet night study quarters. The warden staff is responsive and helpful.',
+  },
 ];
 
-// ── Icon renderer ──────────────────────────────────────────────────────
 function FacilityIcon({ name }: { name: string }) {
   const cls = 'w-6 h-6 text-blue-600 dark:text-blue-400';
   switch (name.toLowerCase()) {
@@ -94,7 +93,6 @@ function FacilityIcon({ name }: { name: string }) {
   }
 }
 
-// ── Main Component ─────────────────────────────────────────────────────
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
   const [hostelInfo, setHostelInfo] = useState(defaultHostelInfo);
@@ -111,9 +109,18 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      try { const d = await apiRequest('/hostel'); if (d?.success && d.hostelInfo) setHostelInfo(d.hostelInfo); } catch {}
-      try { const d = await apiRequest('/rooms'); if (d?.success && d.rooms) setRooms(d.rooms); } catch {}
-      try { const d = await apiRequest('/facilities'); if (d?.success && d.facilities) setFacilities(d.facilities); } catch {}
+      try {
+        const d = await apiRequest('/hostel');
+        if (d?.success && d.hostelInfo) setHostelInfo(d.hostelInfo);
+      } catch {}
+      try {
+        const d = await apiRequest('/rooms');
+        if (d?.success && d.rooms) setRooms(d.rooms);
+      } catch {}
+      try {
+        const d = await apiRequest('/facilities');
+        if (d?.success && d.facilities) setFacilities(d.facilities);
+      } catch {}
     })();
   }, []);
 
@@ -123,60 +130,141 @@ export default function Home() {
   const prevLightbox = () => setLightboxIndex(p => (p - 1 + filteredGallery.length) % filteredGallery.length);
 
   const handleContact = async (e: React.FormEvent) => {
-    e.preventDefault(); setFormLoading(true);
-    try { await apiRequest('/messages', { method: 'POST', body: JSON.stringify(contactForm) }); }
-    catch {}
-    setFormSuccess(true); setContactForm({ name: '', email: '', phone: '', message: '' });
+    e.preventDefault();
+    setFormLoading(true);
+    try {
+      await apiRequest('/messages', { method: 'POST', body: JSON.stringify(contactForm) });
+    } catch {}
+    setFormSuccess(true);
+    setContactForm({ name: '', email: '', phone: '', message: '' });
     setTimeout(() => setFormSuccess(false), 5000);
     setFormLoading(false);
   };
 
-  const navLinks = ['Home','About','Rooms','Gallery','Facilities','Library','Warden','Contact'].map(l => ({label: l, href: `#${l.toLowerCase()}`}));
+  const navLinks = ['Home', 'About', 'Rooms', 'Facilities', 'Library', 'Gallery', 'Leadership', 'Contact'].map(l => ({
+    label: l,
+    href: `#${l.toLowerCase()}`,
+  }));
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans transition-colors duration-300">
+      {/* ── CLIENT DEMO TOP STRIP ── */}
+      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-teal-700 text-white text-xs py-2 px-4 shadow-sm relative z-50">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-extrabold tracking-wide">Interactive Client MVP Showcase:</span>
+            <span className="hidden md:inline text-blue-100">Pure React Single Page App (Vercel Ready)</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Link
+              to="/auth/login"
+              className="px-2.5 py-0.5 rounded-lg bg-white/20 hover:bg-white/30 text-white font-bold transition-all flex items-center gap-1"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Warden Portal</span>
+            </Link>
+            <Link
+              to="/auth/login"
+              className="px-2.5 py-0.5 rounded-lg bg-emerald-500/80 hover:bg-emerald-500 text-white font-bold transition-all flex items-center gap-1"
+            >
+              <GraduationCap className="w-3.5 h-3.5" />
+              <span>Student Portal</span>
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* ── NAVBAR ── */}
-      <nav className="glass-nav sticky top-0 z-50">
+      <nav className="glass-nav sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <div className="flex items-center space-x-2.5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-500/20">KP</div>
-              <span className="hidden sm:block font-bold text-xl tracking-tight text-slate-900 dark:text-white">KP <span className="text-blue-600 dark:text-blue-400">Youth Hostel</span></span>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-teal-500 flex items-center justify-center text-white font-black text-lg shadow-md shadow-blue-500/25">
+                KP
+              </div>
+              <div>
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white leading-tight block">
+                  KP Youth <span className="text-blue-600 dark:text-blue-400">Hostel</span>
+                </span>
+                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">
+                  Peshawar University Road
+                </span>
+              </div>
             </div>
+
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center space-x-5">
-              {navLinks.map(l => <a key={l.label} href={l.href} className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{l.label}</a>)}
+            <div className="hidden lg:flex items-center space-x-6">
+              {navLinks.map(l => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className="font-bold text-xs uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
             </div>
+
             <div className="hidden lg:flex items-center space-x-3">
-              <button onClick={toggleTheme} className="p-2 h-10 w-10 rounded-xl hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300 transition-all">
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              <button
+                onClick={toggleTheme}
+                title="Toggle Theme"
+                className="p-2 h-10 w-10 rounded-xl hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300 transition-all border border-slate-200/60 dark:border-slate-800"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
               </button>
               <Link to="/auth/login">
-                <button className="px-5 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 font-medium text-sm transition-all">Login Portal</button>
+                <button className="px-5 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/25 transition-all">
+                  Sign In Portal →
+                </button>
               </Link>
             </div>
-            {/* Mobile */}
-            <div className="flex lg:hidden items-center space-x-3">
-              <button onClick={toggleTheme} className="p-2 h-9 w-9 rounded-lg hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300">
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+
+            {/* Mobile Actions */}
+            <div className="flex lg:hidden items-center space-x-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 h-9 w-9 rounded-lg hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
               </button>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 h-9 w-9 rounded-lg hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 h-9 w-9 rounded-lg hover:bg-slate-200/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-700 dark:text-slate-300"
+              >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
-              <div className="px-4 pt-2 pb-6 space-y-1">
-                {navLinks.map(l => <a key={l.label} href={l.href} onClick={() => setMobileMenuOpen(false)} className="block py-2.5 px-3 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">{l.label}</a>)}
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl"
+            >
+              <div className="px-4 pt-3 pb-6 space-y-1">
+                {navLinks.map(l => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-2.5 px-3 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    {l.label}
+                  </a>
+                ))}
                 <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                   <Link to="/auth/login" onClick={() => setMobileMenuOpen(false)}>
-                    <button className="w-full h-12 rounded-xl bg-blue-600 text-white font-medium shadow-md shadow-blue-500/10">Login Portal</button>
+                    <button className="w-full h-11 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20">
+                      Open Management Portal
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -185,139 +273,218 @@ export default function Home() {
         </AnimatePresence>
       </nav>
 
-      {/* ── HERO ── */}
-      <section id="home" className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden py-16 px-4">
+      {/* ── HERO SECTION ── */}
+      <section id="home" className="relative min-h-[calc(100vh-120px)] flex items-center justify-center overflow-hidden py-16 px-4">
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 8, repeat: Infinity }}
-            className="absolute -top-1/4 -left-1/4 w-[80vw] h-[80vw] max-w-3xl max-h-3xl rounded-full bg-blue-600/8 dark:bg-blue-600/5 blur-[120px]" />
-          <motion.div animate={{ scale: [1.1, 1, 1.1] }} transition={{ duration: 10, repeat: Infinity }}
-            className="absolute -bottom-1/4 -right-1/4 w-[80vw] h-[80vw] max-w-3xl max-h-3xl rounded-full bg-emerald-500/8 dark:bg-emerald-500/5 blur-[120px]" />
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], opacity: [0.06, 0.12, 0.06] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute -top-1/4 -left-1/4 w-[80vw] h-[80vw] max-w-3xl max-h-3xl rounded-full bg-blue-600 blur-[130px]"
+          />
+          <motion.div
+            animate={{ scale: [1.15, 1, 1.15], opacity: [0.05, 0.10, 0.05] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute -bottom-1/4 -right-1/4 w-[80vw] h-[80vw] max-w-3xl max-h-3xl rounded-full bg-emerald-500 blur-[130px]"
+          />
         </div>
+
         <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           <div className="col-span-1 lg:col-span-7 text-center lg:text-left">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold text-xs mb-6 uppercase tracking-wider mx-auto lg:mx-0">
-                <Star className="w-4 h-4" /><span>Premium Boarding Facility</span>
+            <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs mb-6 uppercase tracking-wider mx-auto lg:mx-0 border border-blue-500/20">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Premier Student Boarding & Study Hub</span>
               </div>
-              <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
-                KP Youth University <br /><span className="text-gradient">Hostel Peshawar</span>
+
+              <h1 className="font-black text-4xl sm:text-5xl md:text-6xl tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+                KP Youth University <br />
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 bg-clip-text text-transparent">
+                  Hostel Peshawar
+                </span>
               </h1>
-              <p className="max-w-xl text-lg text-slate-600 dark:text-slate-400 mb-8 mx-auto lg:mx-0 leading-relaxed">
-                Experience a modern, highly secure, and fully digitized residential ecosystem near University Road. Perfect study environment, biometric logs, and premium facilities for students.
+
+              <p className="max-w-xl text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-8 mx-auto lg:mx-0 leading-relaxed font-normal">
+                A digitized residential campus designed for ambitious students. Featuring biometric turnstiles, 500 Mbps redundant fiber WiFi, 24/7 solar power, hygienic mess dining, and silent AC study halls near University Road.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-3.5 sm:space-y-0 sm:space-x-4">
                 <a href="#contact" className="w-full sm:w-auto">
-                  <button className="w-full sm:w-auto h-12 px-8 rounded-xl btn-gradient flex items-center justify-center space-x-2">
-                    <span>Apply Now</span><ArrowRight className="w-5 h-5" />
+                  <button className="w-full sm:w-auto h-12 px-8 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm shadow-xl shadow-blue-600/30 flex items-center justify-center space-x-2 transition-all">
+                    <span>Apply for Spring Intake</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </a>
-                <a href="#facilities" className="w-full sm:w-auto">
-                  <button className="w-full sm:w-auto h-12 px-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium transition-all">
-                    Explore Facilities
+                <Link to="/auth/login" className="w-full sm:w-auto">
+                  <button className="w-full sm:w-auto h-12 px-7 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold text-sm transition-all shadow-sm flex items-center justify-center space-x-2">
+                    <ShieldCheck className="w-4 h-4 text-blue-500" />
+                    <span>Client Demo Login</span>
                   </button>
-                </a>
+                </Link>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="pt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left border-t border-slate-200/80 dark:border-slate-800/80 mt-10">
+                <div>
+                  <span className="font-extrabold text-xl text-slate-900 dark:text-white block">24/7</span>
+                  <span className="text-[11px] text-slate-500">Uninterrupted Power</span>
+                </div>
+                <div>
+                  <span className="font-extrabold text-xl text-blue-600 dark:text-blue-400 block">500 Mbps</span>
+                  <span className="text-[11px] text-slate-500">Fiber Optic Mesh</span>
+                </div>
+                <div>
+                  <span className="font-extrabold text-xl text-emerald-600 dark:text-emerald-400 block">100%</span>
+                  <span className="text-[11px] text-slate-500">Hygienic Halal Mess</span>
+                </div>
               </div>
             </motion.div>
           </div>
+
+          {/* Hero Image Showcase */}
           <div className="col-span-1 lg:col-span-5 flex justify-center">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative w-full max-w-[480px] aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-800/50">
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10" />
-              <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800" alt="KP Youth Hostel" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute bottom-6 left-6 z-20 text-white">
-                <p className="font-bold text-xl">Modern Study Chambers</p>
-                <p className="text-slate-300 text-sm">Quiet, fully furnished shared student units.</p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="relative w-full max-w-[460px] aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 dark:border-slate-800"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent z-10" />
+              <img
+                src="/images/hostel_outside.jpg"
+                alt="KP Youth Hostel Building"
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={e => {
+                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800';
+                }}
+              />
+              <div className="absolute bottom-6 left-6 right-6 z-20 text-white">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500 text-white mb-2 inline-block">
+                  Rahatabad Peshawar Campus
+                </span>
+                <p className="font-black text-xl">Main Hostel Entrance</p>
+                <p className="text-slate-300 text-xs mt-0.5">Zoo Street, University Road, Khyber Pakhtunkhwa</p>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section id="about" className="py-24 border-t border-slate-200/50 dark:border-slate-900/50 bg-white dark:bg-slate-900/30">
+      {/* ── ABOUT SECTION ── */}
+      <section id="about" className="py-24 border-t border-slate-200/60 dark:border-slate-900 bg-white dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">About The Hostel</h2>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{hostelInfo.description}</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Vision & Leadership
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">
+              About KP Youth University Hostel
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              {hostelInfo.description}
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: <Target className="w-6 h-6" />, color: 'text-blue-600 dark:text-blue-400 bg-blue-500/10', title: 'Our Mission', text: hostelInfo.mission },
               { icon: <Eye className="w-6 h-6" />, color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10', title: 'Our Vision', text: hostelInfo.vision },
-              { icon: <Calendar className="w-6 h-6" />, color: 'text-amber-600 dark:text-amber-400 bg-amber-500/10', title: 'Our History', text: hostelInfo.history },
+              { icon: <Calendar className="w-6 h-6" />, color: 'text-amber-600 dark:text-amber-400 bg-amber-500/10', title: 'Campus Heritage', text: hostelInfo.history },
             ].map(({ icon, color, title, text }) => (
-              <motion.div key={title} whileHover={{ y: -5 }} className="p-8 rounded-2xl glass-card">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${color}`}>{icon}</div>
-                <h3 className="font-bold text-xl text-slate-900 dark:text-white mb-3">{title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{text}</p>
+              <motion.div
+                key={title}
+                whileHover={{ y: -4 }}
+                className="p-7 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm"
+              >
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 ${color}`}>{icon}</div>
+                <h3 className="font-black text-lg text-slate-900 dark:text-white mb-2">{title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">{text}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── ROOMS ── */}
+      {/* ── ROOMS EXPLORER ── */}
       <section id="rooms" className="py-24 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Premium Rooms</h2>
-            <p className="text-slate-600 dark:text-slate-400">Choose from single private rooms or modern shared boarding spaces. Complete with high-speed internet and air-cooling.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Boarding Options
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">
+              Modern Room Plans & Pricing
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-sm">
+              All plans include high-speed fiber internet, continuous power backup, and quiet study quarters.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {rooms.slice(0, 3).map((room, i) => {
-              const vacancy = room.capacity - (room.residents?.length || 0);
-              const isFull = vacancy <= 0;
-              const img = room.capacity === 1
-                ? 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=600'
-                : room.capacity === 2
-                ? 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=600'
-                : 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=600';
-              return (
-                <motion.div key={room.roomNumber} whileHover={{ y: -6 }} className="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+            {[
+              {
+                title: 'Quad Shared Dormitory',
+                capacity: 4,
+                monthlyFee: 9500,
+                desc: 'Economical, spacious room with 4 private study desks, wardrobes, and high-speed Wi-Fi.',
+                img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=700',
+                badge: 'Most Popular',
+              },
+              {
+                title: 'Executive Double Bed Studio',
+                capacity: 2,
+                monthlyFee: 14000,
+                desc: 'Balanced privacy with premium attached washroom, study partitioned tables, and cooling.',
+                img: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=700',
+                badge: 'High Demand',
+              },
+              {
+                title: 'Single Private Deluxe Suite',
+                capacity: 1,
+                monthlyFee: 19500,
+                desc: 'Full quiet privacy designed for medical researchers, postgraduates, and final-year scholars.',
+                img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=700',
+                badge: 'Premium Private',
+              },
+            ].map(plan => (
+              <motion.div
+                key={plan.title}
+                whileHover={{ y: -5 }}
+                className="rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between"
+              >
+                <div>
                   <div className="relative h-56">
-                    <img src={img} alt={`Room ${room.roomNumber}`} className="w-full h-full object-cover" />
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/95 text-slate-800 shadow-sm">Room {room.roomNumber}</div>
+                    <img src={plan.img} alt={plan.title} className="w-full h-full object-cover" />
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-slate-900 shadow-md">
+                      {plan.badge}
+                    </div>
                   </div>
                   <div className="p-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-xs font-semibold tracking-wider uppercase text-blue-600 dark:text-blue-400">{room.capacity === 1 ? 'Single Room' : `${room.capacity}-Share Unit`}</span>
-                      <span className="font-extrabold text-lg text-slate-900 dark:text-white">PKR {room.monthlyFee?.toLocaleString()} <span className="text-xs font-normal text-slate-400">/mo</span></span>
+                    <div className="flex justify-between items-baseline mb-2">
+                      <h3 className="font-extrabold text-base text-slate-900 dark:text-white">{plan.title}</h3>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 py-4 border-t border-b border-slate-100 dark:border-slate-800 text-sm mb-6">
-                      <div><span className="text-slate-400 block text-xs">Capacity</span><span className="font-semibold text-slate-800 dark:text-slate-200">{room.capacity} Seats</span></div>
-                      <div><span className="text-slate-400 block text-xs">Available</span><span className={`font-semibold ${isFull ? 'text-red-500' : 'text-emerald-500'}`}>{isFull ? 'House Full' : `${vacancy} Vacant`}</span></div>
+                    <div className="text-xl font-black text-blue-600 dark:text-blue-400 mb-3">
+                      PKR {plan.monthlyFee.toLocaleString()}{' '}
+                      <span className="text-xs font-normal text-slate-400">/ month</span>
                     </div>
-                    <a href="#contact">
-                      <button className="w-full py-2.5 rounded-xl border border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white font-medium text-sm transition-all flex items-center justify-center space-x-2">
-                        <span>Apply For Room</span><ArrowRight className="w-4 h-4" />
-                      </button>
-                    </a>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                      {plan.desc}
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 text-[11px] py-3 border-t border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+                      <div>✓ Fiber Mesh WiFi</div>
+                      <div>✓ 24/7 UPS & Solar</div>
+                      <div>✓ Biometric Turnstile</div>
+                      <div>✓ AC Library Access</div>
+                    </div>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FACILITIES ── */}
-      <section id="facilities" className="py-24 bg-white dark:bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Premium Facilities</h2>
-            <p className="text-slate-600 dark:text-slate-400">Enjoy a comfortable lifestyle with everything you need. Fully managed utilities so you can focus entirely on academics.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {facilities.map((fac, i) => (
-              <motion.div key={fac.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                whileHover={{ scale: 1.02 }}
-                className="p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 bg-white dark:bg-slate-900/60 shadow-sm flex space-x-4 card-shine">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                  <FacilityIcon name={fac.icon || 'info'} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-2">{fac.name}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">{fac.description}</p>
+
+                <div className="p-6 pt-0">
+                  <a href="#contact">
+                    <button className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all flex items-center justify-center space-x-2">
+                      <span>Reserve Bed Space</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </a>
                 </div>
               </motion.div>
             ))}
@@ -325,171 +492,268 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── AC LIBRARY ── */}
+      {/* ── FACILITIES SECTION ── */}
+      <section id="facilities" className="py-24 bg-white dark:bg-slate-900/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Campus Amenities
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">
+              Everything You Need To Excel
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-sm">
+              We manage all hostel utilities, security, and logistics so students can focus on academics.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {facilities.map((fac, i) => (
+              <motion.div
+                key={fac.name}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ y: -3 }}
+                className="p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 border border-blue-500/20">
+                    <FacilityIcon name={fac.icon || 'wifi'} />
+                  </div>
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white mb-2 leading-tight">
+                    {fac.name}
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                    {fac.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 24/7 AC LIBRARY FEATURE ── */}
       <section id="library" className="py-24 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="col-span-1 lg:col-span-5 relative h-96 sm:h-[450px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 dark:border-slate-800/50">
-              <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800" alt="AC Library" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent z-10" />
+            <div className="col-span-1 lg:col-span-6 relative h-96 sm:h-[440px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 dark:border-slate-800">
+              <img
+                src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=900"
+                alt="AC Library Hall"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent z-10" />
               <div className="absolute bottom-8 left-8 right-8 z-20 text-white">
-                <span className="px-3 py-1 rounded-full text-xs bg-emerald-500 font-semibold mb-3 inline-block">Open 24/7</span>
-                <h3 className="font-bold text-2xl mb-2">Central Study Hall</h3>
-                <p className="text-slate-300 text-sm">Quiet zoning equipped with continuous cooling and high-speed desks.</p>
+                <span className="px-3 py-1 rounded-full text-xs bg-emerald-500 font-bold mb-3 inline-block">
+                  Open 24 Hours / 7 Days
+                </span>
+                <h3 className="font-black text-2xl mb-1">Silent Academic Study Hall</h3>
+                <p className="text-slate-300 text-xs">Separate study partitions, charging sockets, and high-speed Wi-Fi.</p>
               </div>
             </div>
-            <div className="col-span-1 lg:col-span-7 flex flex-col justify-center">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs mb-6 uppercase tracking-wider mr-auto">
-                <BookOpen className="w-4 h-4" /><span>Silent Study Quarters</span>
+
+            <div className="col-span-1 lg:col-span-6">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs mb-5 uppercase tracking-wider">
+                <BookOpen className="w-4 h-4" />
+                <span>Dedicated Study Quarters</span>
               </div>
-              <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-6">Air Conditioned Library</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">Dedicated silent study quarters boasting comfortable ergonomic chairs, separate study partitions, charging ports, and reference resources to ensure residents can study peacefully.</p>
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                {[['120 Seat Capacity','Separate desks and partitions.'],['Continuous Backup','UPS & Generator connected.'],['Reference Library','Journals and exam resources.'],['AC Cooling','Cool environment in hot summers.']].map(([h,sub]) => (
-                  <div key={h} className="flex space-x-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 flex-shrink-0 mt-0.5"><Check className="w-3.5 h-3.5" /></div>
-                    <div><h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm">{h}</h4><p className="text-slate-500 text-xs">{sub}</p></div>
+              <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-5 leading-tight">
+                Quiet & Air-Conditioned Digital Reading Hall
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                Recognizing the demands of competitive university examinations (UET, KMU MBBS, FAST CS), our dedicated study lounge operates around the clock. Ergonomic seating and complete silence help you stay focused.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {[
+                  ['120 Study Desks', 'Separate partitions and charging hubs.'],
+                  ['24/7 Power Continuity', 'Dedicated UPS and generator loop.'],
+                  ['Hot Beverage Station', 'Complimentary midnight tea during exams.'],
+                  ['Climate Controlled', 'Dual inverter ACs maintaining cool temperature.'],
+                ].map(([title, desc]) => (
+                  <div key={title} className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs">
+                    <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+                      <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      <span>{title}</span>
+                    </div>
+                    <p className="text-slate-400 text-[11px] pl-5">{desc}</p>
                   </div>
                 ))}
               </div>
+
+              <a href="#contact">
+                <button className="h-11 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs transition-all shadow-md">
+                  Book a Campus Tour →
+                </button>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── GALLERY ── */}
-      <section id="gallery" className="py-24 bg-white dark:bg-slate-900/30">
+      {/* ── PHOTO GALLERY ── */}
+      <section id="gallery" className="py-24 bg-white dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Hostel Gallery</h2>
-              <p className="text-slate-600 dark:text-slate-400 text-sm max-w-xl">Explore photos of our dining hall, building, study library, and student rooms.</p>
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+                Visual Tour
+              </span>
+              <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
+                Campus Gallery
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 text-xs max-w-xl">
+                Explore authentic photos of our student rooms, dining hall, building facade, and recreation areas.
+              </p>
             </div>
-            <div className="flex flex-wrap gap-2 mt-6 md:mt-0">
-              {['All','Rooms','Dining Hall','Library','Building','Sports Area'].map(cat => (
-                <button key={cat} onClick={() => setGalleryFilter(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all ${galleryFilter===cat?'bg-blue-600 text-white':'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'}`}>
+            <div className="flex flex-wrap gap-1.5 mt-5 md:mt-0">
+              {['All', 'Rooms', 'Dining Hall', 'Library', 'Building', 'Sports Area'].map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setGalleryFilter(cat)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    galleryFilter === cat
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}
+                >
                   {cat}
                 </button>
               ))}
             </div>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredGallery.map((item, idx) => (
-              <motion.div layout key={item.url} onClick={() => openLightbox(idx)}
-                className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200/30 dark:border-slate-800/30 shadow-sm cursor-pointer">
-                <img src={item.url} alt={item.caption || 'Hostel Image'} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <motion.div
+                layout
+                key={item.url}
+                onClick={() => openLightbox(idx)}
+                className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm cursor-pointer"
+              >
+                <img
+                  src={item.url}
+                  alt={item.caption || 'Hostel Campus'}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
                 <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white"><Eye className="w-5 h-5" /></div>
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                    <Eye className="w-5 h-5" />
+                  </div>
                 </div>
                 {item.caption && (
-                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-slate-950/70 to-transparent text-white z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-xs font-medium">{item.caption}</p>
+                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-slate-950/80 to-transparent text-white z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-xs font-semibold">{item.caption}</p>
                   </div>
                 )}
               </motion.div>
             ))}
           </div>
         </div>
-        {/* Lightbox */}
+
+        {/* Lightbox Modal */}
         <AnimatePresence>
           {lightboxOpen && filteredGallery[lightboxIndex] && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-slate-950/95 flex items-center justify-center p-4">
-              <button onClick={() => setLightboxOpen(false)} className="absolute top-6 right-6 text-white p-2 z-[110]"><X className="w-8 h-8" /></button>
-              <button onClick={prevLightbox} className="absolute left-6 text-white p-3 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-sm z-[110]"><ChevronLeft className="w-6 h-6" /></button>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-slate-950/95 flex items-center justify-center p-4 backdrop-blur-md"
+            >
+              <button onClick={() => setLightboxOpen(false)} className="absolute top-6 right-6 text-white p-2 z-[110]">
+                <X className="w-8 h-8" />
+              </button>
+              <button onClick={prevLightbox} className="absolute left-6 text-white p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm z-[110]">
+                <ChevronLeft className="w-6 h-6" />
+              </button>
               <div className="max-w-4xl max-h-[80vh] flex flex-col items-center justify-center px-12">
-                <motion.img key={lightboxIndex} initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}
-                  src={filteredGallery[lightboxIndex].url} alt={filteredGallery[lightboxIndex].caption || ''} className="max-w-full max-h-[70vh] rounded-xl object-contain shadow-2xl" />
-                {filteredGallery[lightboxIndex].caption && <p className="text-slate-400 text-sm mt-4 text-center">{filteredGallery[lightboxIndex].caption}</p>}
+                <motion.img
+                  key={lightboxIndex}
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.25 }}
+                  src={filteredGallery[lightboxIndex].url}
+                  alt={filteredGallery[lightboxIndex].caption || ''}
+                  className="max-w-full max-h-[70vh] rounded-2xl object-contain shadow-2xl"
+                />
+                {filteredGallery[lightboxIndex].caption && (
+                  <p className="text-slate-300 text-sm mt-4 text-center font-semibold">
+                    {filteredGallery[lightboxIndex].caption}
+                  </p>
+                )}
               </div>
-              <button onClick={nextLightbox} className="absolute right-6 text-white p-3 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-sm z-[110]"><ChevronRight className="w-6 h-6" /></button>
+              <button onClick={nextLightbox} className="absolute right-6 text-white p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm z-[110]">
+                <ChevronRight className="w-6 h-6" />
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
       </section>
 
-      {/* ── WARDEN & MD ── */}
-      <section id="warden" className="py-24 bg-slate-50 dark:bg-slate-950">
+      {/* ── LEADERSHIP (WARDEN & DIRECTOR) ── */}
+      <section id="leadership" className="py-24 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Leadership</h2>
-            <p className="text-slate-600 dark:text-slate-400">Meet the people who manage and run KP Youth Hostel.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Supervision
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
+              Hostel Governance & Leadership
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-xs">
+              Dedicated administrators ensuring resident safety, hygiene, and academic growth.
+            </p>
           </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[
-              { role: 'Hostel Warden', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400', person: hostelInfo.warden, sub: hostelInfo.warden.qualification },
-              { role: 'Managing Director', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400', person: hostelInfo.md, sub: 'Directorate of Youth Affairs KP' },
+              {
+                role: 'Hostel Warden & Student Affairs',
+                color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+                person: hostelInfo.warden,
+                sub: hostelInfo.warden.qualification,
+              },
+              {
+                role: 'Executive Director (KP Youth Board)',
+                color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400',
+                person: hostelInfo.md,
+                sub: 'Directorate of Youth Affairs KP',
+              },
             ].map(({ role, color, person, sub }) => (
-              <motion.div key={role} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="rounded-3xl p-8 sm:p-12 border border-slate-200/50 dark:border-slate-800/50 bg-white dark:bg-slate-900 shadow-sm flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-8 items-center sm:items-start">
-                <div className="flex-shrink-0 w-32 h-32 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
-                  <img src={person.image} alt={person.name} className="w-full h-full object-cover"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                  <User className="w-12 h-12 text-slate-400 absolute" />
+              <motion.div
+                key={role}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="rounded-3xl p-8 sm:p-10 border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col sm:flex-row space-y-5 sm:space-y-0 sm:space-x-7 items-center sm:items-start"
+              >
+                <div className="flex-shrink-0 w-28 h-28 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
+                  <img
+                    src={person.image}
+                    alt={person.name}
+                    className="w-full h-full object-cover"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  <User className="w-10 h-10 text-slate-400" />
                 </div>
                 <div>
-                  <span className={`px-3 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-2 inline-block ${color}`}>{role}</span>
-                  <h3 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1">{person.name}</h3>
-                  <p className="text-slate-400 text-xs mb-4">{sub}</p>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4 italic">"{person.message}"</p>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">{person.bio}</p>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-2 inline-block ${color}`}>
+                    {role}
+                  </span>
+                  <h3 className="font-extrabold text-xl text-slate-900 dark:text-white mb-0.5">
+                    {person.name}
+                  </h3>
+                  <p className="text-slate-400 text-xs mb-3 font-medium">{sub}</p>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mb-3 italic">
+                    "{person.message}"
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+                    {person.bio}
+                  </p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── LOCATION ── */}
-      <section className="py-24 bg-white dark:bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="col-span-1 lg:col-span-5">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold text-xs mb-6 uppercase tracking-wider">
-                <MapPin className="w-4 h-4" /><span>Hostel Location</span>
-              </div>
-              <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Peshawar University Road</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">Located near Zoo Street, our campus sits at a major transport hub, allowing students to walk to nearby campuses or access local buses within minutes.</p>
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 mb-6 flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                <div><h4 className="font-semibold text-sm text-slate-800 dark:text-slate-200">Address</h4><p className="text-slate-500 text-xs">{hostelInfo.location.address}</p></div>
-              </div>
-              <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-3 text-sm">Nearby Universities:</h4>
-              <ul className="space-y-2">
-                {hostelInfo.location.nearbyUniversities.map(u => (
-                  <li key={u} className="flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" /><span>{u}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-1 lg:col-span-7">
-              <div className="w-full h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 dark:border-slate-800/50">
-                {hostelInfo.location.googleMapUrl ? (
-                  <iframe title="Hostel Location Map" src={hostelInfo.location.googleMapUrl} width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" />
-                ) : (
-                  <div className="w-full h-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-400"><MapPin className="w-12 h-12" /></div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOSTEL RULES ── */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Hostel Rules</h2>
-            <p className="text-slate-600 dark:text-slate-400">All residents are expected to adhere to these guidelines for a safe and productive environment.</p>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {hostelInfo.rules.map((rule, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                className="flex items-start space-x-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm">
-                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-extrabold flex-shrink-0">{i + 1}</div>
-                <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{rule}</p>
               </motion.div>
             ))}
           </div>
@@ -497,24 +761,50 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-24 bg-white dark:bg-slate-900/30">
+      <section className="py-24 bg-white dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Resident Testimonials</h2>
-            <p className="text-slate-600 dark:text-slate-400">Hear from our residents what it's like living at KP Youth Hostel.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Resident Voices
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
+              What Our Residents Say
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-xs">
+              Real reviews from students attending universities across Peshawar.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {testimonials.map((t, i) => (
-              <motion.div key={t.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
                 whileHover={{ y: -4 }}
-                className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm card-shine">
-                <div className="flex space-x-1 mb-4">
-                  {[...Array(t.rating)].map((_, j) => <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />)}
+                className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex space-x-1 mb-3">
+                    {[...Array(t.rating)].map((_, j) => (
+                      <Star key={j} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mb-5 italic">
+                    "{t.text}"
+                  </p>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 italic">"{t.text}"</p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 text-blue-600 flex items-center justify-center font-extrabold text-xs uppercase">{t.name.substring(0,2)}</div>
-                  <div><p className="font-bold text-slate-900 dark:text-white text-sm">{t.name}</p><p className="text-xs text-slate-400">{t.university}</p></div>
+
+                <div className="flex items-center space-x-3 pt-3 border-t border-slate-200/60 dark:border-slate-800">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
+                    {t.name.substring(0, 2)}
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900 dark:text-white text-xs">{t.name}</p>
+                    <p className="text-[10px] text-slate-400 truncate max-w-[150px]">{t.university}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -522,25 +812,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FAQ ── */}
+      {/* ── FAQ SECTION ── */}
       <section className="py-24 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Frequently Asked Questions</h2>
-            <p className="text-slate-600 dark:text-slate-400">Answers to the most common admission and facility questions.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+              Clarifications
+            </span>
+            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-xs">
+              Key questions about admissions, fees, security, and facility access.
+            </p>
           </div>
-          <div className="space-y-4">
+
+          <div className="space-y-3.5">
             {faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm overflow-hidden">
-                <button onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left">
-                  <span className="font-bold text-slate-900 dark:text-white text-sm pr-4">{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-200 ${activeFaq === i ? 'rotate-180' : ''}`} />
+              <div
+                key={i}
+                className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden"
+              >
+                <button
+                  onClick={() => setActiveFaq(activeFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm pr-4">
+                    {faq.q}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
+                      activeFaq === i ? 'rotate-180' : ''
+                    }`}
+                  />
                 </button>
                 <AnimatePresence>
                   {activeFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
-                      <p className="px-6 pb-6 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <p className="px-5 pb-5 text-slate-600 dark:text-slate-400 text-xs leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
+                        {faq.a}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -550,48 +866,137 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
-      <section id="contact" className="py-24 bg-white dark:bg-slate-900/30">
+      {/* ── CONTACT & ADMISSION FORM ── */}
+      <section id="contact" className="py-24 bg-white dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="col-span-1 lg:col-span-5">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold text-xs mb-6 uppercase tracking-wider">
-                <MessageCircle className="w-4 h-4" /><span>Get in Touch</span>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-xs mb-5 uppercase tracking-wider">
+                <MessageCircle className="w-4 h-4" />
+                <span>Admission Desk</span>
               </div>
-              <h2 className="font-extrabold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-6">Apply for Admission</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">Fill out this form with your details and our Warden's office will respond within 24 hours to schedule a visit or confirm your room booking.</p>
-              <div className="space-y-5">
-                {[<><Phone className="w-5 h-5 text-blue-600" /><div><p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Call / WhatsApp</p><p className="text-slate-500 text-xs">{hostelInfo.contact.phone}</p></div></>,<><Mail className="w-5 h-5 text-blue-600" /><div><p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Email Us</p><p className="text-slate-500 text-xs">{hostelInfo.contact.email}</p></div></>,].map((content, i) => (
-                  <div key={i} className="flex items-start space-x-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">{content}</div>
-                ))}
+              <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">
+                Inquire or Apply Online
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
+                Submit your inquiry and the Warden Office will contact you within 24 hours to schedule an in-person room inspection or confirm seat allocation.
+              </p>
+
+              <div className="space-y-3.5 mb-8">
+                <div className="flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                  <Phone className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-xs text-slate-900 dark:text-white">Warden Direct Line</p>
+                    <p className="text-slate-400 text-xs font-mono">{hostelInfo.contact.phone}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                  <Mail className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-xs text-slate-900 dark:text-white">Official Admissions Email</p>
+                    <p className="text-slate-400 text-xs">{hostelInfo.contact.email}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                  <MapPin className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-xs text-slate-900 dark:text-white">Campus Location</p>
+                    <p className="text-slate-400 text-xs">{hostelInfo.location.address}</p>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div className="col-span-1 lg:col-span-7">
-              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm">
+              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                <h3 className="font-extrabold text-lg text-slate-900 dark:text-white mb-1">
+                  Send Admission Inquiry
+                </h3>
+                <p className="text-xs text-slate-400 mb-6">
+                  Inquire about seat availability for Spring / Fall semester intakes.
+                </p>
+
                 <AnimatePresence>
                   {formSuccess && (
-                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                      className="mb-5 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm text-center flex items-center justify-center space-x-2">
-                      <Check className="w-5 h-5" /><span>Message received! We'll respond within 24 hours.</span>
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center space-x-2"
+                    >
+                      <Check className="w-4 h-4" />
+                      <span>Inquiry submitted! Our admissions office will get back to you shortly.</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
+
                 <form onSubmit={handleContact} className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[['Full Name','text','name'],['Email Address','email','email'],['Phone Number','tel','phone']].map(([lbl,type,key]) => (
-                      <div key={key} className={key==='phone'?'sm:col-span-2':''}>
-                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">{lbl}</label>
-                        <input type={type} required value={(contactForm as any)[key]} onChange={e => setContactForm({...contactForm, [key]: e.target.value})} className="input-base" placeholder={key==='name'?'Your full name':key==='email'?'your@email.com':'+92-300-0000000'} />
-                      </div>
-                    ))}
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                        Your Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={contactForm.name}
+                        onChange={e => setContactForm({ ...contactForm, name: e.target.value })}
+                        placeholder="e.g. Asad Ullah Khan"
+                        className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={contactForm.email}
+                        onChange={e => setContactForm({ ...contactForm, email: e.target.value })}
+                        placeholder="asad@example.com"
+                        className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
+                      />
+                    </div>
                   </div>
+
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Your Message</label>
-                    <textarea required rows={5} value={contactForm.message} onChange={e => setContactForm({...contactForm, message: e.target.value})} className="input-base pt-3 resize-none h-auto" placeholder="Tell us about your university, preferred room type, expected move-in date..." />
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={contactForm.phone}
+                      onChange={e => setContactForm({ ...contactForm, phone: e.target.value })}
+                      placeholder="+92-300-1234567"
+                      className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
+                    />
                   </div>
-                  <motion.button type="submit" disabled={formLoading} whileTap={{ scale: 0.97 }} className="w-full h-12 rounded-xl btn-gradient text-sm font-bold disabled:opacity-70 mt-2">
-                    {formLoading ? 'Sending...' : 'Send Admission Inquiry →'}
-                  </motion.button>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                      Message / University / Preferred Room Type *
+                    </label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={contactForm.message}
+                      onChange={e => setContactForm({ ...contactForm, message: e.target.value })}
+                      placeholder="Tell us about your university, degree department, preferred room type (Single, Double, Quad), and expected move-in date..."
+                      className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formLoading}
+                    className="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-600/25 transition-all disabled:opacity-50"
+                  >
+                    {formLoading ? 'Submitting...' : 'Send Inquiry to Warden Office →'}
+                  </button>
                 </form>
               </div>
             </div>
@@ -600,38 +1005,49 @@ export default function Home() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="py-16 bg-slate-950 text-white">
+      <footer className="py-14 bg-slate-950 text-white border-t border-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
             <div>
-              <div className="flex items-center space-x-2.5 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">KP</div>
-                <span className="font-bold text-lg">KP Youth Hostel</span>
+              <div className="flex items-center space-x-2.5 mb-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-sm">
+                  KP
+                </div>
+                <span className="font-extrabold text-base">KP Youth Hostel</span>
               </div>
-              <p className="text-slate-400 text-sm leading-relaxed">Khyber Pakhtunkhwa's premier digitized student boarding facility near University Road, Peshawar.</p>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Khyber Pakhtunkhwa's premier digitized student boarding facility near University Road, Rahatabad, Peshawar.
+              </p>
             </div>
             <div>
-              <h4 className="font-bold text-sm uppercase tracking-wider mb-4 text-slate-300">Quick Links</h4>
-              <ul className="space-y-2">
-                {navLinks.map(l => <li key={l.label}><a href={l.href} className="text-slate-400 hover:text-white text-sm transition-colors">{l.label}</a></li>)}
+              <h4 className="font-bold text-xs uppercase tracking-wider mb-3 text-slate-300">Quick Navigation</h4>
+              <ul className="space-y-1.5 text-xs">
+                {navLinks.map(l => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-slate-400 hover:text-white transition-colors">
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-sm uppercase tracking-wider mb-4 text-slate-300">Contact</h4>
-              <div className="space-y-3 text-sm text-slate-400">
-                <p><MapPin className="w-4 h-4 inline mr-2 text-blue-400" />{hostelInfo.location.address}</p>
-                <p><Phone className="w-4 h-4 inline mr-2 text-blue-400" />{hostelInfo.contact.phone}</p>
-                <p><Mail className="w-4 h-4 inline mr-2 text-blue-400" />{hostelInfo.contact.email}</p>
+              <h4 className="font-bold text-xs uppercase tracking-wider mb-3 text-slate-300">Hostel Helpdesk</h4>
+              <div className="space-y-2 text-xs text-slate-400">
+                <p>{hostelInfo.location.address}</p>
+                <p>Hotline: {hostelInfo.contact.phone}</p>
+                <p>Email: {hostelInfo.contact.email}</p>
               </div>
             </div>
           </div>
-          <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs">
-            <p>© {new Date().getFullYear()} KP Youth University Hostel. All rights reserved.</p>
-            <Link to="/auth/login" className="mt-4 sm:mt-0 text-blue-400 hover:text-blue-300 transition-colors font-semibold">Staff Login →</Link>
+          <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs">
+            <p>© {new Date().getFullYear()} KP Youth University Hostel. Client Demo Release.</p>
+            <Link to="/auth/login" className="mt-3 sm:mt-0 text-blue-400 hover:text-blue-300 font-bold">
+              Staff & Resident Login Portal →
+            </Link>
           </div>
         </div>
       </footer>
-
     </div>
   );
 }
