@@ -103,7 +103,19 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!stats) return null;
+  if (!stats) {
+    return (
+      <div className="p-12 text-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <p className="text-slate-500 dark:text-slate-400 text-sm">Dashboard metrics could not be loaded.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-500"
+        >
+          Reload Dashboard
+        </button>
+      </div>
+    );
+  }
 
   const occupancyRate = stats.rooms.totalSeats > 0
     ? Math.round((stats.rooms.occupiedSeats / stats.rooms.totalSeats) * 100)

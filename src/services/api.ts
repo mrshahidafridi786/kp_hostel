@@ -806,6 +806,20 @@ export const INITIAL_HOSTEL_INFO = {
     bio: 'Executive Director overseeing Youth Welfare Infrastructure in Khyber Pakhtunkhwa. He focuses on sustainable green architecture and modern digital platforms for students.',
     image: '/images/md.jpg',
   },
+  rules: [
+    'Curfew is strictly 10:00 PM. Late entries must be approved via Warden digital slip.',
+    'Cleanliness is mandatory. Residents must keep their rooms tidy and hygienic.',
+    'No external visitors are allowed inside residential rooms without logging at reception.',
+    'Anti-social behaviors, smoking, or unauthorized electrical appliances are strictly prohibited.',
+  ],
+  gallery: [
+    { url: '/images/hostel_dining.jpg', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall — KP Youth Hostel' },
+    { url: '/images/hostel_outside.jpg', category: 'Building', caption: 'KP University Youth Hostel — Main Facade' },
+    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
+    { url: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
+    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
+    { url: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=800', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
+  ],
   system: {
     smtpHost: 'smtp.gmail.com',
     smtpPort: 587,
@@ -837,7 +851,15 @@ export const saveMessages = (msg: any[]) => setStored('messages', msg);
 export const loadFacilities = () => getStored('facilities', INITIAL_FACILITIES);
 export const saveFacilities = (fac: any[]) => setStored('facilities', fac);
 
-export const loadHostelInfo = () => getStored('hostel_info', INITIAL_HOSTEL_INFO);
+export const loadHostelInfo = () => {
+  const stored = getStored('hostel_info', INITIAL_HOSTEL_INFO);
+  return {
+    ...INITIAL_HOSTEL_INFO,
+    ...(stored || {}),
+    rules: Array.isArray(stored?.rules) && stored.rules.length > 0 ? stored.rules : INITIAL_HOSTEL_INFO.rules,
+    gallery: Array.isArray(stored?.gallery) && stored.gallery.length > 0 ? stored.gallery : INITIAL_HOSTEL_INFO.gallery,
+  };
+};
 export const saveHostelInfo = (info: any) => setStored('hostel_info', info);
 
 // Reset utility to restore fresh demo data anytime

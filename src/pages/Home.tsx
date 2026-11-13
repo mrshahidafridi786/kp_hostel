@@ -111,29 +111,47 @@ export default function Home() {
     (async () => {
       try {
         const d = await apiRequest('/hostel');
-        if (d?.success && d.hostelInfo) setHostelInfo(d.hostelInfo);
+        if (d?.success && d.hostelInfo) {
+          setHostelInfo(prev => ({
+            ...prev,
+            ...d.hostelInfo,
+            gallery: (Array.isArray(d.hostelInfo?.gallery) && d.hostelInfo.gallery.length > 0)
+              ? d.hostelInfo.gallery
+              : prev.gallery,
+            rules: (Array.isArray(d.hostelInfo?.rules) && d.hostelInfo.rules.length > 0)
+              ? d.hostelInfo.rules
+              : prev.rules,
+          }));
+        }
       } catch (err) {
         console.debug('Failed to load hostel info', err);
       }
       try {
         const d = await apiRequest('/rooms');
-        if (d?.success && d.rooms) setRooms(d.rooms);
+        if (d?.success && Array.isArray(d.rooms)) setRooms(d.rooms);
       } catch (err) {
         console.debug('Failed to load rooms', err);
       }
       try {
         const d = await apiRequest('/facilities');
-        if (d?.success && d.facilities) setFacilities(d.facilities);
+        if (d?.success && Array.isArray(d.facilities)) setFacilities(d.facilities);
       } catch (err) {
         console.debug('Failed to load facilities', err);
       }
     })();
   }, []);
 
-  const filteredGallery = galleryFilter === 'All' ? hostelInfo.gallery : hostelInfo.gallery.filter(i => i.category === galleryFilter);
+  const galleryList = Array.isArray(hostelInfo?.gallery) && hostelInfo.gallery.length > 0
+    ? hostelInfo.gallery
+    : defaultHostelInfo.gallery;
+
+  const filteredGallery = galleryFilter === 'All'
+    ? galleryList
+    : galleryList.filter((i: any) => i?.category === galleryFilter);
+
   const openLightbox = (i: number) => { setLightboxIndex(i); setLightboxOpen(true); };
-  const nextLightbox = () => setLightboxIndex(p => (p + 1) % filteredGallery.length);
-  const prevLightbox = () => setLightboxIndex(p => (p - 1 + filteredGallery.length) % filteredGallery.length);
+  const nextLightbox = () => setLightboxIndex(p => (p + 1) % (filteredGallery.length || 1));
+  const prevLightbox = () => setLightboxIndex(p => (p - 1 + (filteredGallery.length || 1)) % (filteredGallery.length || 1));
 
   const handleContact = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -721,13 +739,13 @@ export default function Home() {
               {
                 role: 'Hostel Warden & Student Affairs',
                 color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
-                person: hostelInfo.warden,
-                sub: hostelInfo.warden.qualification,
+                person: hostelInfo?.warden || defaultHostelInfo.warden,
+                sub: hostelInfo?.warden?.qualification || defaultHostelInfo.warden.qualification,
               },
               {
                 role: 'Executive Director (KP Youth Board)',
                 color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400',
-                person: hostelInfo.md,
+                person: hostelInfo?.md || defaultHostelInfo.md,
                 sub: 'Directorate of Youth Affairs KP',
               },
             ].map(({ role, color, person, sub }) => (
@@ -895,7 +913,7 @@ export default function Home() {
                   <Phone className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-bold text-xs text-slate-900 dark:text-white">Warden Direct Line</p>
-                    <p className="text-slate-400 text-xs font-mono">{hostelInfo.contact.phone}</p>
+                    <p className="text-slate-400 text-xs font-mono">{hostelInfo?.contact?.phone || defaultHostelInfo.contact.phone}</p>
                   </div>
                 </div>
 
@@ -903,7 +921,7 @@ export default function Home() {
                   <Mail className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-bold text-xs text-slate-900 dark:text-white">Official Admissions Email</p>
-                    <p className="text-slate-400 text-xs">{hostelInfo.contact.email}</p>
+                    <p className="text-slate-400 text-xs">{hostelInfo?.contact?.email || defaultHostelInfo.contact.email}</p>
                   </div>
                 </div>
 
@@ -911,7 +929,7 @@ export default function Home() {
                   <MapPin className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-bold text-xs text-slate-900 dark:text-white">Campus Location</p>
-                    <p className="text-slate-400 text-xs">{hostelInfo.location.address}</p>
+                    <p className="text-slate-400 text-xs">{hostelInfo?.location?.address || defaultHostelInfo.location.address}</p>
                   </div>
                 </div>
               </div>
@@ -1042,9 +1060,9 @@ export default function Home() {
             <div>
               <h4 className="font-bold text-xs uppercase tracking-wider mb-3 text-slate-300">Hostel Helpdesk</h4>
               <div className="space-y-2 text-xs text-slate-400">
-                <p>{hostelInfo.location.address}</p>
-                <p>Hotline: {hostelInfo.contact.phone}</p>
-                <p>Email: {hostelInfo.contact.email}</p>
+                <p>{hostelInfo?.location?.address || defaultHostelInfo.location.address}</p>
+                <p>Hotline: {hostelInfo?.contact?.phone || defaultHostelInfo.contact.phone}</p>
+                <p>Email: {hostelInfo?.contact?.email || defaultHostelInfo.contact.email}</p>
               </div>
             </div>
           </div>
