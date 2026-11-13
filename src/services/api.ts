@@ -32,14 +32,14 @@ export const INITIAL_USERS = [
   {
     _id: 'admin-001',
     id: 'admin-001',
-    name: 'Prof. Dr. Tariq Mansoor',
+    name: 'Hostel Administration',
     email: 'admin@kpyouth.com',
     password: 'admin123',
     role: 'Admin' as const,
     status: 'Active' as const,
     phone: '+92-91-9216701',
     feeStatus: 'Paid' as const,
-    profilePhoto: '/images/warden.jpg',
+    profilePhoto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-001',
@@ -61,7 +61,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-08-20',
     feeStatus: 'Pending' as const,
     notes: 'Merit scholarship recipient. IEEE Student Chapter Lead.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-002',
@@ -83,7 +83,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-09-05',
     feeStatus: 'Paid' as const,
     notes: 'Robotics team member. Quiet study preferences.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-003',
@@ -105,7 +105,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-10-01',
     feeStatus: 'Paid' as const,
     notes: 'Volunteers for hostel first-aid clinic.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-004',
@@ -127,7 +127,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-08-15',
     feeStatus: 'Pending' as const,
     notes: '',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-005',
@@ -149,7 +149,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-07-28',
     feeStatus: 'Paid' as const,
     notes: 'Full-stack web developer & peer mentor.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-006',
@@ -171,7 +171,7 @@ export const INITIAL_USERS = [
     admissionDate: '2026-02-10',
     feeStatus: 'Paid' as const,
     notes: 'Debating society active speaker.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-007',
@@ -193,7 +193,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-09-12',
     feeStatus: 'Paid' as const,
     notes: 'Table tennis tournament champion 2025.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-008',
@@ -215,7 +215,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-08-18',
     feeStatus: 'Paid' as const,
     notes: 'AI Researcher & Kaggle enthusiast.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-009',
@@ -237,7 +237,7 @@ export const INITIAL_USERS = [
     admissionDate: '2024-09-01',
     feeStatus: 'Paid' as const,
     notes: 'Requires night study lamp & silence for hospital ward prep.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-010',
@@ -259,7 +259,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-09-20',
     feeStatus: 'Overdue' as const,
     notes: 'Requested installment payment plan for hostel dues.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-011',
@@ -281,7 +281,7 @@ export const INITIAL_USERS = [
     admissionDate: '2024-10-15',
     feeStatus: 'Paid' as const,
     notes: 'Studio design work desk installed.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-012',
@@ -303,7 +303,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-08-30',
     feeStatus: 'Paid' as const,
     notes: '',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-013',
@@ -325,7 +325,7 @@ export const INITIAL_USERS = [
     admissionDate: '2026-11-01',
     feeStatus: 'Pending' as const,
     notes: 'New admission applicant awaiting room assignment.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&q=80&w=400',
   },
   {
     _id: 'student-014',
@@ -347,7 +347,7 @@ export const INITIAL_USERS = [
     admissionDate: '2025-09-18',
     feeStatus: 'Overdue' as const,
     notes: 'Suspended due to prolonged unexcused absence.',
-    profilePhoto: '',
+    profilePhoto: 'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?auto=format&fit=crop&q=80&w=400',
   },
 ];
 
@@ -645,7 +645,7 @@ export const INITIAL_ANNOUNCEMENTS = [
   {
     _id: 'ann-101',
     title: 'Winter Sports Gala & Table Tennis Championship',
-    content: 'Registration is now open for the Annual Inter-Floor Table Tennis and Badminton Tournament starting November 25th. Interested residents can sign up at the Warden Office before Friday.',
+    content: 'Registration is now open for the Annual Inter-Floor Table Tennis and Badminton Tournament starting November 25th. Interested residents can sign up at the Administration Desk before Friday.',
     targetAudience: 'All' as const,
     createdAt: '2026-11-12T09:30:00Z',
     createdBy: { name: 'Prof. Dr. Tariq Mansoor' },
@@ -792,33 +792,35 @@ export const INITIAL_HOSTEL_INFO = {
     ],
   },
   warden: {
-    name: 'Prof. Dr. Tariq Mansoor',
-    qualification: 'Ph.D. in Higher Education Administration (Peshawar University)',
-    experience: '14+ Years in Student Boarding & Academic Mentorship',
+    name: 'Hostel Administration Office',
+    qualification: 'Central Administrative Committee',
+    experience: '15+ Years Combined Campus Management Experience',
     message: 'Welcome to KP Youth Hostel. Our primary mission is to provide every student an environment that feels like home while instilling academic focus, modern security, and deep mutual respect.',
-    bio: 'Prof. Dr. Tariq Mansoor has dedicated over a decade to youth welfare and higher education administration. He spearheads the digital transformation of hostel life in KP.',
-    image: '/images/warden.jpg',
+    bio: 'Dedicated management overseeing residential welfare, security turnstiles, and digitized student amenities across Khyber Pakhtunkhwa.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
   },
   md: {
-    name: 'Engr. Salman Durrani',
+    name: 'Directorate of Youth Affairs',
     vision: 'To build modern, digitized youth hostels across KP, promoting academic success and equal opportunity for every aspiring student.',
     message: 'By replacing archaic paper registers with an automated digital boarding portal, we ensure transparent fee tracking, streamlined room allocation, and rapid student assistance.',
-    bio: 'Executive Director overseeing Youth Welfare Infrastructure in Khyber Pakhtunkhwa. He focuses on sustainable green architecture and modern digital platforms for students.',
-    image: '/images/md.jpg',
+    bio: 'Governmental department overseeing youth welfare infrastructure, digital hostels, and academic lodging throughout Khyber Pakhtunkhwa.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400',
   },
   rules: [
-    'Curfew is strictly 10:00 PM. Late entries must be approved via Warden digital slip.',
+    'Curfew is strictly 10:00 PM. Late entries must be approved via Administration digital gate slip.',
     'Cleanliness is mandatory. Residents must keep their rooms tidy and hygienic.',
     'No external visitors are allowed inside residential rooms without logging at reception.',
     'Anti-social behaviors, smoking, or unauthorized electrical appliances are strictly prohibited.',
   ],
   gallery: [
-    { url: '/images/hostel_dining.jpg', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall — KP Youth Hostel' },
-    { url: '/images/hostel_outside.jpg', category: 'Building', caption: 'KP University Youth Hostel — Main Facade' },
-    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
-    { url: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
-    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
-    { url: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=800', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
+    { url: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1000', category: 'Building', caption: 'KP University Youth Hostel — Main Academic Facade' },
+    { url: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?auto=format&fit=crop&q=80&w=1000', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall & Student Cafeteria' },
+    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=1000', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
+    { url: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=1000', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
+    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=1000', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
+    { url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
+    { url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000', category: 'Library', caption: 'High-Speed Computer & Research Workstation Pods' },
+    { url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=1000', category: 'Building', caption: 'Student Common Lounge & Leisure Hall' },
   ],
   system: {
     smtpHost: 'smtp.gmail.com',
@@ -833,7 +835,18 @@ export const INITIAL_HOSTEL_INFO = {
 
 // ─── Data Access & Persistence Helpers ───────────────────────────────────────
 
-export const loadUsers = () => getStored('users', INITIAL_USERS);
+export const loadUsers = () => {
+  const users = getStored('users', INITIAL_USERS);
+  return users.map((u: any) => {
+    const init = INITIAL_USERS.find(iu => iu.id === u.id || iu._id === u._id);
+    return {
+      ...u,
+      profilePhoto: u.profilePhoto && !u.profilePhoto.includes('/images/')
+        ? u.profilePhoto
+        : init?.profilePhoto || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
+    };
+  });
+};
 export const saveUsers = (users: any[]) => setStored('users', users);
 
 export const loadRooms = () => getStored('rooms', INITIAL_ROOMS);
@@ -853,11 +866,14 @@ export const saveFacilities = (fac: any[]) => setStored('facilities', fac);
 
 export const loadHostelInfo = () => {
   const stored = getStored('hostel_info', INITIAL_HOSTEL_INFO);
+  const gallery = (Array.isArray(stored?.gallery) && stored.gallery.length > 0 && !stored.gallery[0].url.includes('/images/'))
+    ? stored.gallery
+    : INITIAL_HOSTEL_INFO.gallery;
   return {
     ...INITIAL_HOSTEL_INFO,
     ...(stored || {}),
     rules: Array.isArray(stored?.rules) && stored.rules.length > 0 ? stored.rules : INITIAL_HOSTEL_INFO.rules,
-    gallery: Array.isArray(stored?.gallery) && stored.gallery.length > 0 ? stored.gallery : INITIAL_HOSTEL_INFO.gallery,
+    gallery,
   };
 };
 export const saveHostelInfo = (info: any) => setStored('hostel_info', info);

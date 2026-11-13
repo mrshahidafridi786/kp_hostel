@@ -24,6 +24,7 @@ interface Student {
   roomNumber?: string;
   admissionDate?: string;
   notes?: string;
+  profilePhoto?: string;
 }
 
 const emptyForm = {
@@ -321,9 +322,18 @@ export default function AdminStudents() {
                   >
                     <td className="p-4 pl-6">
                       <div className="flex items-center space-x-3">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
-                          {s.name.substring(0, 2)}
-                        </div>
+                        {s.profilePhoto ? (
+                          <img
+                            src={s.profilePhoto}
+                            alt={s.name}
+                            className="w-9 h-9 rounded-xl object-cover shadow-sm border border-slate-200 dark:border-slate-800"
+                            onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
+                            {s.name.substring(0, 2)}
+                          </div>
+                        )}
                         <div>
                           <p className="font-bold text-slate-900 dark:text-white leading-tight">{s.name}</p>
                           <div className="flex items-center space-x-2 text-[10px] text-slate-400 mt-0.5">
@@ -619,7 +629,7 @@ export default function AdminStudents() {
 
                 <div>
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
-                    Warden Remarks / Special Requests
+                    Administrative Remarks / Special Requests
                   </label>
                   <textarea
                     rows={2}
@@ -723,9 +733,18 @@ export default function AdminStudents() {
                   <GraduationCap className="w-32 h-32" />
                 </div>
                 <div className="relative z-10 flex items-start space-x-4">
-                  <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-2xl uppercase border border-white/30">
-                    {viewStudent.name.substring(0, 2)}
-                  </div>
+                  {viewStudent.profilePhoto ? (
+                    <img
+                      src={viewStudent.profilePhoto}
+                      alt={viewStudent.name}
+                      className="w-16 h-16 rounded-2xl object-cover border border-white/30 shadow-md"
+                      onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-2xl uppercase border border-white/30">
+                      {viewStudent.name.substring(0, 2)}
+                    </div>
+                  )}
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-blue-200">
                       KP Youth Hostel Resident
@@ -806,7 +825,7 @@ export default function AdminStudents() {
               {viewStudent.notes && (
                 <div className="mt-4 p-3.5 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 text-xs">
                   <span className="text-[10px] text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider block mb-1">
-                    Warden Advisory Notes
+                    Administrative Advisory Notes
                   </span>
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                     {viewStudent.notes}

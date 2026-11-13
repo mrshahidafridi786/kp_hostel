@@ -85,7 +85,7 @@ export default function AdminSettings() {
   };
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: 'profile', label: 'Leadership & Bios' },
+    { key: 'profile', label: 'Hostel Overview & Policies' },
     { key: 'hostel', label: 'Contact & Campus Map' },
     { key: 'system', label: 'Notification Gateways' },
   ];
@@ -110,7 +110,7 @@ export default function AdminSettings() {
             System Settings
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
-            Manage warden profile, hostel public contact information, and testing defaults.
+            Manage hostel profile, public contact information, and testing defaults.
           </p>
         </div>
 
@@ -155,88 +155,68 @@ export default function AdminSettings() {
       </AnimatePresence>
 
       <form onSubmit={save} className="space-y-6">
-        {/* Leadership Bios Tab */}
+        {/* Hostel Overview & Policies Tab */}
         {tab === 'profile' && (
           <div className="space-y-6">
-            {/* Warden Details */}
+            {/* Overview & Mission */}
             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
               <h3 className="font-extrabold text-sm uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
-                <User className="w-4 h-4 text-blue-600" />
-                <span>Hostel Warden Profile</span>
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span>Hostel Public Mission & Vision</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Full Name & Title
-                  </label>
-                  <input
-                    value={formData.warden.name}
-                    onChange={e => setFormData({ ...formData, warden: { ...formData.warden, name: e.target.value } })}
-                    className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Academic Qualification
-                  </label>
-                  <input
-                    value={formData.warden.qualification}
-                    onChange={e => setFormData({ ...formData, warden: { ...formData.warden, qualification: e.target.value } })}
-                    className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
-                  />
-                </div>
                 <div className="sm:col-span-2">
                   <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Warden's Welcome Message
+                    Official Hostel Description
                   </label>
                   <textarea
                     rows={2}
-                    value={formData.warden.message}
-                    onChange={e => setFormData({ ...formData, warden: { ...formData.warden, message: e.target.value } })}
+                    value={formData.description}
+                    onChange={e => setFormData({ ...formData, description: e.target.value })}
+                    className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                    Institutional Mission
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.mission}
+                    onChange={e => setFormData({ ...formData, mission: e.target.value })}
+                    className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                    Institutional Vision
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.vision}
+                    onChange={e => setFormData({ ...formData, vision: e.target.value })}
                     className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Managing Director */}
+            {/* Campus Heritage & History */}
             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
               <h3 className="font-extrabold text-sm uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
-                <User className="w-4 h-4 text-indigo-600" />
-                <span>Executive Director Profile</span>
+                <Settings className="w-4 h-4 text-indigo-600" />
+                <span>Campus Heritage & Founding History</span>
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Director Name
-                  </label>
-                  <input
-                    value={formData.md.name}
-                    onChange={e => setFormData({ ...formData, md: { ...formData.md, name: e.target.value } })}
-                    className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Strategic Vision
-                  </label>
-                  <input
-                    value={formData.md.vision}
-                    onChange={e => setFormData({ ...formData, md: { ...formData.md, vision: e.target.value } })}
-                    className="w-full h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                    Official Message
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={formData.md.message}
-                    onChange={e => setFormData({ ...formData, md: { ...formData.md, message: e.target.value } })}
-                    className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
-                  />
-                </div>
+              <div className="text-xs">
+                <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                  Historical Background
+                </label>
+                <textarea
+                  rows={2}
+                  value={formData.history}
+                  onChange={e => setFormData({ ...formData, history: e.target.value })}
+                  className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white outline-none focus:border-blue-500 resize-none"
+                />
               </div>
             </div>
           </div>

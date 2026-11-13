@@ -317,9 +317,9 @@ export default function Login() {
             >
               <div className="flex items-center space-x-1.5 text-blue-400 font-bold text-xs mb-1">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Warden Admin</span>
+                <span>Hostel Admin</span>
               </div>
-              <span className="text-[10px] text-slate-400 group-hover:text-slate-300">Dr. Tariq Mansoor</span>
+              <span className="text-[10px] text-slate-400 group-hover:text-slate-300">Administration Office</span>
               <span className="text-[9px] font-mono text-slate-500 mt-1">admin@kpyouth.com</span>
             </button>
 

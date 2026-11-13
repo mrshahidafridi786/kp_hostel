@@ -57,9 +57,13 @@ export default function StudentLayout() {
 
       <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-3">
         <div className="flex items-center space-x-3 px-2">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs uppercase border border-emerald-200 dark:border-emerald-900">
-            {user.name.substring(0, 2)}
-          </div>
+          {user.profilePhoto ? (
+            <img src={user.profilePhoto} alt={user.name} className="w-9 h-9 rounded-xl object-cover border border-emerald-500/30 shadow-sm" />
+          ) : (
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs uppercase border border-emerald-200 dark:border-emerald-900">
+              {user.name.substring(0, 2)}
+            </div>
+          )}
           <div className="overflow-hidden">
             <p className="font-bold text-xs text-slate-900 dark:text-white truncate">{user.name}</p>
             <p className="text-[10px] text-slate-400 truncate">Room {user.roomNumber || 'Unassigned'}</p>
@@ -96,9 +100,13 @@ export default function StudentLayout() {
               {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
             </button>
             <div className="hidden md:flex items-center space-x-2 border-l border-slate-200 dark:border-slate-700 pl-3">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
-                {user.name.substring(0,2)}
-              </div>
+              {user.profilePhoto ? (
+                <img src={user.profilePhoto} alt={user.name} className="w-7 h-7 rounded-full object-cover border border-emerald-500/30" />
+              ) : (
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
+                  {user.name.substring(0,2)}
+                </div>
+              )}
               <div>
                 <p className="text-xs font-bold text-slate-800 dark:text-white leading-none">{user.name}</p>
                 <p className="text-[10px] text-slate-400">Resident Student</p>

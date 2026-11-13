@@ -178,9 +178,18 @@ export default function StudentDashboard() {
         </div>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-2xl uppercase border border-white/30 shadow-inner">
-              {user.name.substring(0, 2)}
-            </div>
+            {user.profilePhoto ? (
+              <img
+                src={user.profilePhoto}
+                alt={user.name}
+                className="w-16 h-16 rounded-2xl object-cover border border-white/30 shadow-inner"
+                onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            ) : (
+              <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-2xl uppercase border border-white/30 shadow-inner">
+                {user.name.substring(0, 2)}
+              </div>
+            )}
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-200">
@@ -454,7 +463,7 @@ export default function StudentDashboard() {
               <h4 className="font-extrabold text-base text-slate-900 dark:text-white">{ann.title}</h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{ann.content}</p>
               <p className="text-[10px] text-slate-400 font-semibold pt-1">
-                Issued by: {ann.createdBy?.name || 'Prof. Dr. Tariq Mansoor (Warden Office)'}
+                Issued by: {ann.createdBy?.name || 'Hostel Administration Office'}
               </p>
             </motion.div>
           ))}

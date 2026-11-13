@@ -167,7 +167,7 @@ export default function AdminDashboard() {
         <div>
           <div className="flex items-center space-x-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">
             <ShieldCheck className="w-4 h-4" />
-            <span>Warden Command Center</span>
+            <span>Admin Command Center</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
             Hostel Operations Overview

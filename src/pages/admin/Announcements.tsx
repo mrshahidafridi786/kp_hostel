@@ -229,7 +229,7 @@ export default function AdminAnnouncements() {
                     {ann.content}
                   </p>
                   <p className="text-[10px] text-slate-400 font-semibold pt-1">
-                    Issued by: {ann.createdBy?.name || 'Prof. Dr. Tariq Mansoor (Warden)'}
+                    Issued by: {ann.createdBy?.name || 'Hostel Administration Office'}
                   </p>
                 </div>
 

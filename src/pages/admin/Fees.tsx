@@ -540,7 +540,7 @@ export default function AdminFees() {
                     <option value="JazzCash">JazzCash</option>
                     <option value="Meezan Bank Transfer">Meezan Bank Direct Deposit</option>
                     <option value="Bank Alfalah App">Bank Alfalah App</option>
-                    <option value="Cash Voucher">Cash Voucher at Warden Office</option>
+                    <option value="Cash Voucher">Cash Voucher at Administration Desk</option>
                   </select>
                 </div>
 
@@ -652,7 +652,7 @@ export default function AdminFees() {
               </div>
 
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-center font-bold text-xs mb-5">
-                Status: Verified & Cleared by Warden Office
+                Status: Verified & Cleared by Administration Office
               </div>
 
               <div className="flex space-x-2">

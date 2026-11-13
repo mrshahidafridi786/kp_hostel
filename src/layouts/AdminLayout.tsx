@@ -68,7 +68,7 @@ export default function AdminLayout() {
           KP
         </div>
         <div>
-          <span className="font-bold text-sm text-slate-900 dark:text-white block leading-none">Warden Portal</span>
+          <span className="font-bold text-sm text-slate-900 dark:text-white block leading-none">Admin Portal</span>
           <span className="text-[10px] text-slate-400">KP Youth Hostel</span>
         </div>
       </div>
@@ -90,12 +90,16 @@ export default function AdminLayout() {
       {/* Footer */}
       <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-3">
         <div className="flex items-center space-x-3 px-2">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs uppercase border border-blue-200 dark:border-blue-900">
-            {user.name.substring(0, 2)}
-          </div>
+          {user.profilePhoto ? (
+            <img src={user.profilePhoto} alt={user.name} className="w-9 h-9 rounded-xl object-cover border border-blue-500/30 shadow-sm" />
+          ) : (
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs uppercase border border-blue-200 dark:border-blue-900">
+              {user.name.substring(0, 2)}
+            </div>
+          )}
           <div className="overflow-hidden">
             <p className="font-bold text-xs text-slate-900 dark:text-white truncate">{user.name}</p>
-            <p className="text-[10px] text-slate-400 truncate">Hostel Manager</p>
+            <p className="text-[10px] text-slate-400 truncate">Administrator</p>
           </div>
         </div>
         <button
@@ -136,12 +140,16 @@ export default function AdminLayout() {
               {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
             </button>
             <div className="hidden md:flex items-center space-x-2 border-l border-slate-200 dark:border-slate-700 pl-3">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
-                {user.name.substring(0,2)}
-              </div>
+              {user.profilePhoto ? (
+                <img src={user.profilePhoto} alt={user.name} className="w-7 h-7 rounded-full object-cover border border-blue-500/30" />
+              ) : (
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
+                  {user.name.substring(0,2)}
+                </div>
+              )}
               <div>
                 <p className="text-xs font-bold text-slate-800 dark:text-white leading-none">{user.name}</p>
-                <p className="text-[10px] text-slate-400">Warden</p>
+                <p className="text-[10px] text-slate-400">Administrator</p>
               </div>
             </div>
           </div>
@@ -175,7 +183,7 @@ export default function AdminLayout() {
               className="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-900 p-6 flex flex-col shadow-2xl lg:hidden"
             >
               <div className="flex justify-between items-center mb-6">
-                <span className="font-bold text-sm text-slate-900 dark:text-white">Warden Portal</span>
+                <span className="font-bold text-sm text-slate-900 dark:text-white">Admin Portal</span>
                 <button onClick={() => setSidebarOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
                   <X className="w-5 h-5 text-slate-500" />
                 </button>

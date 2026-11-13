@@ -14,18 +14,20 @@ import { useTheme } from '@/context/ThemeContext';
 const defaultHostelInfo = {
   ...INITIAL_HOSTEL_INFO,
   rules: [
-    'Curfew is strictly 10:00 PM. Late entries must be approved via Warden digital slip.',
+    'Curfew is strictly 10:00 PM. Late entries must be approved via Administration digital gate slip.',
     'Cleanliness is mandatory. Residents must keep their rooms tidy and hygienic.',
     'No external visitors are allowed inside residential rooms without logging at reception.',
     'Anti-social behaviors, smoking, or unauthorized electrical appliances are strictly prohibited.',
   ],
   gallery: [
-    { url: '/images/hostel_dining.jpg', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall — KP Youth Hostel' },
-    { url: '/images/hostel_outside.jpg', category: 'Building', caption: 'KP University Youth Hostel — Main Facade' },
-    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
-    { url: 'https://images.unsplash.com/photo-1598900866636-458f430ca483?auto=format&fit=crop&q=80&w=800', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
-    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
-    { url: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=800', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
+    { url: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1000', category: 'Building', caption: 'KP University Youth Hostel — Main Academic Facade' },
+    { url: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?auto=format&fit=crop&q=80&w=1000', category: 'Dining Hall', caption: 'Clean & Hygienic Dining Hall & Student Cafeteria' },
+    { url: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=1000', category: 'Rooms', caption: 'Quad Shared Student Room with Ergonomic Desks' },
+    { url: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=1000', category: 'Rooms', caption: 'Executive Double Bed Studio with Study Setup' },
+    { url: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=1000', category: 'Library', caption: 'Air Conditioned Digital Study Hall & Reading Quarters' },
+    { url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000', category: 'Sports Area', caption: 'Indoor Recreation Arena & Table Tennis Pavilion' },
+    { url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000', category: 'Library', caption: 'High-Speed Computer & Research Workstation Pods' },
+    { url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=1000', category: 'Building', caption: 'Student Common Lounge & Leisure Hall' },
   ],
 };
 
@@ -56,25 +58,29 @@ const testimonials = [
     name: 'Bilal Tariq',
     university: 'FAST-NUCES Peshawar (Software Eng.)',
     rating: 5,
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
     text: 'The 500 Mbps high-speed fiber internet and uninterrupted solar power backup made remote coding and final semester projects completely seamless. Hands down the best student accommodation in KP.',
   },
   {
     name: 'Hamza Farooq',
     university: 'Khyber Medical University (Pharm-D)',
     rating: 5,
-    text: 'Hygienic food, 24/7 security, and disciplined quiet hours. The student digital portal makes fee payments and warden permissions straightforward.',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400',
+    text: 'Hygienic food, 24/7 security, and disciplined quiet hours. The student digital portal makes fee payments and hostel inquiries straightforward.',
   },
   {
     name: 'Danyal Rehman',
     university: 'UET Peshawar (Electrical Eng.)',
     rating: 5,
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
     text: 'Very neat and secure. The 24/7 AC library saved me during midterm and final exam weeks. Great community of aspiring engineers and medical scholars.',
   },
   {
     name: 'Shahzaib Shinwari',
     university: 'KMC Peshawar (Final Year MBBS)',
     rating: 5,
-    text: 'Ideal environment for clinical rotation students who need quiet night study quarters. The warden staff is responsive and helpful.',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400',
+    text: 'Ideal environment for clinical rotation students who need quiet night study quarters. The administration staff is responsive and helpful.',
   },
 ];
 
@@ -167,7 +173,7 @@ export default function Home() {
     setFormLoading(false);
   };
 
-  const navLinks = ['Home', 'About', 'Rooms', 'Facilities', 'Library', 'Gallery', 'Leadership', 'Contact'].map(l => ({
+  const navLinks = ['Home', 'About', 'Rooms', 'Facilities', 'Library', 'Gallery', 'Reviews', 'Contact'].map(l => ({
     label: l,
     href: `#${l.toLowerCase()}`,
   }));
@@ -179,8 +185,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-extrabold tracking-wide">Interactive Client MVP Showcase:</span>
-            <span className="hidden md:inline text-blue-100">Pure React Single Page App (Vercel Ready)</span>
+            <span className="font-extrabold tracking-wide">KP Youth Hostel Management:</span>
+            <span className="hidden md:inline text-blue-100">Live Client Demo System</span>
           </div>
           <div className="flex items-center space-x-2">
             <Link
@@ -188,7 +194,7 @@ export default function Home() {
               className="px-2.5 py-0.5 rounded-lg bg-white/20 hover:bg-white/30 text-white font-bold transition-all flex items-center gap-1"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Warden Portal</span>
+              <span>Admin Portal</span>
             </Link>
             <Link
               to="/auth/login"
@@ -376,8 +382,8 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent z-10" />
               <img
-                src="/images/hostel_outside.jpg"
-                alt="KP Youth Hostel Building"
+                src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1000"
+                alt="KP Youth Hostel Campus"
                 className="absolute inset-0 w-full h-full object-cover"
                 onError={e => {
                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800';
@@ -719,75 +725,8 @@ export default function Home() {
         </AnimatePresence>
       </section>
 
-      {/* ── LEADERSHIP (WARDEN & DIRECTOR) ── */}
-      <section id="leadership" className="py-24 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
-              Supervision
-            </span>
-            <h2 className="font-black text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
-              Hostel Governance & Leadership
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-xs">
-              Dedicated administrators ensuring resident safety, hygiene, and academic growth.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[
-              {
-                role: 'Hostel Warden & Student Affairs',
-                color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
-                person: hostelInfo?.warden || defaultHostelInfo.warden,
-                sub: hostelInfo?.warden?.qualification || defaultHostelInfo.warden.qualification,
-              },
-              {
-                role: 'Executive Director (KP Youth Board)',
-                color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400',
-                person: hostelInfo?.md || defaultHostelInfo.md,
-                sub: 'Directorate of Youth Affairs KP',
-              },
-            ].map(({ role, color, person, sub }) => (
-              <motion.div
-                key={role}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="rounded-3xl p-8 sm:p-10 border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col sm:flex-row space-y-5 sm:space-y-0 sm:space-x-7 items-center sm:items-start"
-              >
-                <div className="flex-shrink-0 w-28 h-28 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
-                  <img
-                    src={person.image}
-                    alt={person.name}
-                    className="w-full h-full object-cover"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                  <User className="w-10 h-10 text-slate-400" />
-                </div>
-                <div>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-2 inline-block ${color}`}>
-                    {role}
-                  </span>
-                  <h3 className="font-extrabold text-xl text-slate-900 dark:text-white mb-0.5">
-                    {person.name}
-                  </h3>
-                  <p className="text-slate-400 text-xs mb-3 font-medium">{sub}</p>
-                  <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mb-3 italic">
-                    "{person.message}"
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-                    {person.bio}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section className="py-24 bg-white dark:bg-slate-900/40">
+      {/* ── RESIDENT REVIEWS & TESTIMONIALS ── */}
+      <section id="reviews" className="py-24 bg-white dark:bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
@@ -824,9 +763,13 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center space-x-3 pt-3 border-t border-slate-200/60 dark:border-slate-800">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
-                    {t.name.substring(0, 2)}
-                  </div>
+                  {t.avatar ? (
+                    <img src={t.avatar} alt={t.name} className="w-9 h-9 rounded-xl object-cover shadow-sm border border-slate-200 dark:border-slate-700" />
+                  ) : (
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
+                      {t.name.substring(0, 2)}
+                    </div>
+                  )}
                   <div>
                     <p className="font-bold text-slate-900 dark:text-white text-xs">{t.name}</p>
                     <p className="text-[10px] text-slate-400 truncate max-w-[150px]">{t.university}</p>
@@ -905,14 +848,14 @@ export default function Home() {
                 Inquire or Apply Online
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
-                Submit your inquiry and the Warden Office will contact you within 24 hours to schedule an in-person room inspection or confirm seat allocation.
+                Submit your inquiry and our hostel administration will contact you within 24 hours to schedule an in-person room inspection or confirm seat allocation.
               </p>
 
               <div className="space-y-3.5 mb-8">
                 <div className="flex items-start space-x-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
                   <Phone className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-bold text-xs text-slate-900 dark:text-white">Warden Direct Line</p>
+                    <p className="font-bold text-xs text-slate-900 dark:text-white">Admin Office Hotline</p>
                     <p className="text-slate-400 text-xs font-mono">{hostelInfo?.contact?.phone || defaultHostelInfo.contact.phone}</p>
                   </div>
                 </div>
@@ -1021,7 +964,7 @@ export default function Home() {
                     disabled={formLoading}
                     className="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-600/25 transition-all disabled:opacity-50"
                   >
-                    {formLoading ? 'Submitting...' : 'Send Inquiry to Warden Office →'}
+                    {formLoading ? 'Submitting...' : 'Submit Admission Inquiry →'}
                   </button>
                 </form>
               </div>
