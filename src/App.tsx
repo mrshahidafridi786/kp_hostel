@@ -24,6 +24,7 @@ export default function App() {
           <Routes>
             {/* Public */}
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Navigate to="/auth/login" replace />} />
             <Route path="/auth/login" element={<Login />} />
 
             {/* Admin Portal */}

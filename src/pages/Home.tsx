@@ -112,15 +112,21 @@ export default function Home() {
       try {
         const d = await apiRequest('/hostel');
         if (d?.success && d.hostelInfo) setHostelInfo(d.hostelInfo);
-      } catch {}
+      } catch (err) {
+        console.debug('Failed to load hostel info', err);
+      }
       try {
         const d = await apiRequest('/rooms');
         if (d?.success && d.rooms) setRooms(d.rooms);
-      } catch {}
+      } catch (err) {
+        console.debug('Failed to load rooms', err);
+      }
       try {
         const d = await apiRequest('/facilities');
         if (d?.success && d.facilities) setFacilities(d.facilities);
-      } catch {}
+      } catch (err) {
+        console.debug('Failed to load facilities', err);
+      }
     })();
   }, []);
 
@@ -134,7 +140,9 @@ export default function Home() {
     setFormLoading(true);
     try {
       await apiRequest('/messages', { method: 'POST', body: JSON.stringify(contactForm) });
-    } catch {}
+    } catch (err) {
+      console.debug('Failed to send contact message', err);
+    }
     setFormSuccess(true);
     setContactForm({ name: '', email: '', phone: '', message: '' });
     setTimeout(() => setFormSuccess(false), 5000);
