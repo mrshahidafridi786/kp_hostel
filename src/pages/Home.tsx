@@ -180,33 +180,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans transition-colors duration-300">
-      {/* ── CLIENT DEMO TOP STRIP ── */}
-      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-teal-700 text-white text-xs py-2 px-4 shadow-sm relative z-50">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-extrabold tracking-wide">KP Youth Hostel Management:</span>
-            <span className="hidden md:inline text-blue-100">Live Client Demo System</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Link
-              to="/auth/login"
-              className="px-2.5 py-0.5 rounded-lg bg-white/20 hover:bg-white/30 text-white font-bold transition-all flex items-center gap-1"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Admin Portal</span>
-            </Link>
-            <Link
-              to="/auth/login"
-              className="px-2.5 py-0.5 rounded-lg bg-emerald-500/80 hover:bg-emerald-500 text-white font-bold transition-all flex items-center gap-1"
-            >
-              <GraduationCap className="w-3.5 h-3.5" />
-              <span>Student Portal</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
       {/* ── NAVBAR ── */}
       <nav className="glass-nav sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -349,7 +322,7 @@ export default function Home() {
                 <Link to="/auth/login" className="w-full sm:w-auto">
                   <button className="w-full sm:w-auto h-12 px-7 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold text-sm transition-all shadow-sm flex items-center justify-center space-x-2">
                     <ShieldCheck className="w-4 h-4 text-blue-500" />
-                    <span>Client Demo Login</span>
+                    <span>Resident & Admin Portal</span>
                   </button>
                 </Link>
               </div>
@@ -1010,7 +983,7 @@ export default function Home() {
             </div>
           </div>
           <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-xs">
-            <p>© {new Date().getFullYear()} KP Youth University Hostel. Client Demo Release.</p>
+            <p>© {new Date().getFullYear()} KP Youth University Hostel. All rights reserved.</p>
             <Link to="/auth/login" className="mt-3 sm:mt-0 text-blue-400 hover:text-blue-300 font-bold">
               Staff & Resident Login Portal →
             </Link>
